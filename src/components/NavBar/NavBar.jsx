@@ -12,7 +12,7 @@ const NavBar = () => {
     const handleLogout = ()=>{
         logOut()
         .then(()=>{
-            toast.success("You have been logged out succesfully.")
+            toast.success("You have been logged out succesfully!")
         })
         .catch((error) => {
                 const errorMessage = error.message
@@ -69,7 +69,7 @@ const NavBar = () => {
                         <div className='mr-3 bg-gray-300 p-1 rounded-full'>
                             {loading ? <span className="loading loading-spinner loading-xl"></span> : user ? <img className='w-10 rounded-full' src={user?.photoURL} alt="" /> : <PiFinnTheHumanFill size={35} />}
                         </div>
-                        
+
                         {user && user.email ? <button onClick={handleLogout} className='btn btn-soft btn-accent'>Logout</button> : <Link className='btn btn-soft btn-info' to="/login">Login</Link>}
                         
                     </div>
