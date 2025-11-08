@@ -49,6 +49,7 @@ const Register = () => {
                 form.reset()
 
                 toast.success('Registration Successful!')
+                navigate(`${location.state ? location.state : "/"}`)
             })
             .catch(err => {
                 const errorMessage = err.message
@@ -63,6 +64,7 @@ const Register = () => {
                 const user = result.user
                 setUser(user)
                 toast.success(`Login Successful. Welcome ${user?.displayName}`)
+                navigate(`${location.state ? location.state : "/"}`)
             })
             .catch((err) => {
                 const errorMessage = err.message

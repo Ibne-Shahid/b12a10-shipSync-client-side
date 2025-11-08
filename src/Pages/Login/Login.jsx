@@ -1,6 +1,6 @@
 import React, { use, useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import { Link } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router'
 import { AuthContext } from '../../Provider/AuthProvider'
 import { toast } from 'react-toastify'
 
@@ -8,6 +8,8 @@ const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false)
     const {logIn, signInWithGoogle, setUser} = use(AuthContext)
+    const location = useLocation()
+    const navigate = useNavigate()
 
     const togglePassword = (e) => {
         e.preventDefault()
@@ -29,6 +31,7 @@ const Login = () => {
             form.reset()
 
             toast.success(`Login Successful. Welcome ${user?.displayName}`)
+            navigate(`${location.state ? location.state : "/"}`)
         })
         .catch((err)=>{
             const errorMessage = err.message
@@ -43,6 +46,7 @@ const Login = () => {
             const user = result.user
             setUser(user)
             toast.success(`Login Successful. Welcome ${user?.displayName}`)
+            navigate(`${location.state ? location.state : "/"}`)
         })
         .catch((err)=>{
             const errorMessage = err.message
