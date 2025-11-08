@@ -33,8 +33,6 @@ const Register = () => {
             return
         }
 
-
-
         createUser(email, password)
             .then((result) => {
                 const user = result.user

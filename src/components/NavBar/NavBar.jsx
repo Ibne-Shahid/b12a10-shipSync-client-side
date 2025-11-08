@@ -38,7 +38,7 @@ const NavBar = () => {
                         <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/exportProducts">Export Products</NavLink></li>
                     </ul>
                 </div>
-                <NavLink to="/"><a className="btn btn-ghost text-xl bg-gradient-to-r from-info via-accent to-success bg-clip-text text-transparent">ShipSync</a></NavLink>
+                <NavLink to="/"><h1 className="btn btn-ghost text-xl bg-gradient-to-r from-info via-accent to-success bg-clip-text text-transparent">ShipSync</h1></NavLink>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal gap-3 px-1">
