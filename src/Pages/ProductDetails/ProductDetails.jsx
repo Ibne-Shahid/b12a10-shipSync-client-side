@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router'
+import { AuthContext } from '../../Provider/AuthProvider'
 
 const ProductDetails = () => {
 
     const { id } = useParams()
+    const { user } = use(AuthContext)
     const [products, setProducts] = useState([])
+    const importModalRef = useRef(null)
 
     useEffect(() => {
         fetch('http://localhost:3000/products')
@@ -15,6 +18,10 @@ const ProductDetails = () => {
     }, [])
 
     const product = products.find(p => p?._id === id)
+
+    const handleModal = () => {
+        importModalRef.current.showModal()
+    }
 
     if (!product) {
         return (
@@ -63,9 +70,42 @@ const ProductDetails = () => {
                             </div>
                         </div>
 
-                        <button className="mt-6 btn btn-accent">
-                            Import Now
-                        </button>
+                        <div>
+                            <button onClick={handleModal} className="mt-6 btn btn-accent">
+                                Import Now
+                            </button>
+
+                            <dialog ref={importModalRef} className="modal modal-bottom sm:modal-middle">
+                                <div className="modal-box">
+                                    <h3 className="font-bold text-info text-lg">Add to Import</h3>
+                                    
+                                    <form>
+                                        <fieldset className="fieldset">
+                                            <label className="label">Name</label>
+                                            <input type="text" name='name' className="input" readOnly defaultValue={user?.displayName} />
+                                            {/* email */}
+                                            <label className="label">Email</label>
+                                            <input type="email" className="input" name='email' readOnly defaultValue={user?.email} />
+                                            {/* bid amount */}
+                                            <label className="label">Quantity</label>
+                                            <input type="text" name='quantiry' className="input"
+                                                placeholder='Your Quantity'
+                                            />
+                                            <button className="btn btn-accent mt-4">Import Now</button>
+                                        </fieldset>
+                                    </form>
+
+                                    <div className="modal-action">
+                                        <form method="dialog">
+                                            
+                                            <button className="btn">Cancel</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </dialog>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
