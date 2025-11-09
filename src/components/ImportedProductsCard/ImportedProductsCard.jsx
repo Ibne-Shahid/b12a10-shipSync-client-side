@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const ImportedProductsCard = ({item}) => {
-    console.log(item);
+const ImportedProductsCard = ({item, handleRemove}) => {
+    
+    
     
     return (
         <div className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
@@ -23,7 +24,7 @@ const ImportedProductsCard = ({item}) => {
                 <p className="text-gray-700 mt-2 text-center">Quantity: <span className="font-semibold">{item.importing_quantity}</span></p>
 
                 <div className="flex justify-center gap-3 mt-4">
-                    <button className="btn btn-soft btn-error rounded-full transition">Remove</button>
+                    <button onClick={()=>handleRemove(item?._id)} className="btn btn-soft btn-error rounded-full transition">Remove</button>
                     <Link to={`/productDetails/${item.importedProduct?._id}`}><button className="btn btn-soft btn-info rounded-full transition">See Details</button></Link>
                 </div>
             </div>
