@@ -50,21 +50,19 @@ const ProductDetails = () => {
             .then(data => {
                 toast.success('Product imported successfully!')
 
-                const newQuantity = product?.available_quantity - importQuantity
-
                 fetch(`http://localhost:3000/products/${product?._id}`, {
                     method: 'PATCH',
                     headers: {
                         'content-type': 'application/json'
                     },
-                    body: JSON.stringify({ available_quantity: newQuantity })
+                    body: JSON.stringify({ decreaseBy: importQuantity })
                 })
                     .then(res => res.json())
                     .then(data => {
                         setProducts(prev =>
                             prev.map(p =>
                                 p?._id === product?._id
-                                    ? { ...p, available_quantity: newQuantity }
+                                    ? { ...p, available_quantity: p.available_quantity - importQuantity }
                                     : p
                             )
                         )
@@ -157,7 +155,7 @@ const ProductDetails = () => {
                                                     Quantity cannot exceed available stock ({product.available_quantity})
                                                 </p>
                                             )}
-                                            <button disabled={importQuantity > product.available_quantity || importQuantity <= 0 || product?.available_quantity===0} type='submit' className="btn btn-accent mt-4">Submit</button>
+                                            <button disabled={importQuantity > product.available_quantity || importQuantity <= 0 || product?.available_quantity === 0} type='submit' className="btn btn-accent mt-4">Submit</button>
 
                                         </fieldset>
                                     </form>
