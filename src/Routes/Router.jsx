@@ -8,6 +8,7 @@ import ExportProucts from "../Pages/ExportProduct/ExportProucts";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRout from "../Provider/PrivateRout";
+import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 
 
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
                 path: '/register',
                 element: <Register></Register>
             },
+            {
+                path: '/productDetails/:id',
+                element: <PrivateRout><ProductDetails></ProductDetails></PrivateRout>
+            }
         ]
     }
 ])

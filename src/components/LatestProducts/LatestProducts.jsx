@@ -1,5 +1,6 @@
 import React, { use } from 'react'
 import Card from '../Card/Card'
+import { Link } from 'react-router'
 
 const LatestProducts = ({productsPromise}) => {
 
@@ -12,7 +13,7 @@ const LatestProducts = ({productsPromise}) => {
             {products.map((product)=><Card key={product._id} product={product}></Card>)}
         </div>
         <div className='text-center mt-8'>
-            <button className='btn btn-soft btn-accent'>Show All</button>
+            <Link to="/allProducts"><button className='btn btn-soft btn-accent'>Show All</button></Link>
         </div>
     </div>
   )

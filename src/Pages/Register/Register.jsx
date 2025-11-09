@@ -1,5 +1,5 @@
 import React, { use, useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router'
 import { AuthContext } from '../../Provider/AuthProvider'
 import { toast } from 'react-toastify'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
@@ -8,6 +8,8 @@ const Register = () => {
 
     const [showPassword, setShowPassword] = useState(false)
     const { createUser, updateUser, setUser, signInWithGoogle } = use(AuthContext)
+    const location = useLocation()
+    const navigate = useNavigate()
 
     const togglePassword = (e) => {
         e.preventDefault()
