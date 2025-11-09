@@ -13,11 +13,11 @@ const ImportedProductsCard = ({item, handleRemove}) => {
                     alt={item.importedProduct?.product_name}
                     className="w-full h-[200px] object-cover shadow-md mb-4"
                 />
-                <h3 className="text-xl font-semibold text-gray-800 text-center">{item.importedProduct?.product_name}</h3>
+                <h3 className="text-xl font-semibold text-info text-center">{item.importedProduct?.product_name}</h3>
                 <p className="text-gray-500 text-sm mt-1 text-center">{item.importedProduct?.origin_country}</p>
 
                 <div className="flex justify-between items-center w-full mt-4 px-4">
-                    <span className="text-blue-600 font-bold">৳{item.importedProduct?.price}</span>
+                    <span className="text-accent font-bold">৳{item.importedProduct?.price}</span>
                     <span className="text-yellow-500 font-semibold">{item.importedProduct?.rating} ⭐</span>
                 </div>
 
