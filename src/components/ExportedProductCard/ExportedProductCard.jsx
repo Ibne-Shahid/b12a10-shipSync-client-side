@@ -27,7 +27,7 @@ const ExportedProductCard = ({ product, handleRemoveExport, importModalRef, hand
             description
         }
 
-        fetch(`http://localhost:3000/exportedProducts/${product?._id}`,{
+        fetch(`https://ship-synce-api-server.vercel.app/exportedProducts/${product?._id}`,{
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

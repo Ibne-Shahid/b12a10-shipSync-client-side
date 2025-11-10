@@ -7,7 +7,7 @@ import Reviews from '../../components/Reviews/Reviews'
 
 const Home = () => {
 
-    const productsPromise = fetch('http://localhost:3000/latestProducts').then(res=>res.json())
+    const productsPromise = fetch('https://ship-synce-api-server.vercel.app/latestProducts').then(res=>res.json())
 
   return (
     <div>

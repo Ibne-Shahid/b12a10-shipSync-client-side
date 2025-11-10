@@ -18,7 +18,7 @@ const MyExport = () => {
     useEffect(() => {
         if (user?.email) {
             setLoading(true)
-            fetch(`http://localhost:3000/products?email=${user?.email}`)
+            fetch(`https://ship-synce-api-server.vercel.app/products?email=${user?.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setExports(data)
@@ -43,7 +43,7 @@ const MyExport = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:3000/products/${_id}`, {
+                fetch(`https://ship-synce-api-server.vercel.app/products/${_id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

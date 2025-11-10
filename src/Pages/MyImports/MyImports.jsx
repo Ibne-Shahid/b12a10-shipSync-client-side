@@ -13,8 +13,8 @@ const MyImports = () => {
         if (user?.email) {
             setLoading(true)
             Promise.all([
-                fetch(`http://localhost:3000/imports?email=${user.email}`).then(res => res.json()),
-                fetch('http://localhost:3000/products').then(res => res.json())
+                fetch(`https://ship-synce-api-server.vercel.app/imports?email=${user.email}`).then(res => res.json()),
+                fetch('https://ship-synce-api-server.vercel.app/products').then(res => res.json())
             ])
                 .then(([imports, products]) => {
                     const merged = imports.map(importItem => {
@@ -42,7 +42,7 @@ const MyImports = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:3000/imports/${_id}`, {
+                fetch(`https://ship-synce-api-server.vercel.app/imports/${_id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

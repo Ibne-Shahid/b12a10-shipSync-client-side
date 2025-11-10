@@ -12,7 +12,7 @@ const ProductDetails = () => {
     const importModalRef = useRef(null)
 
     useEffect(() => {
-        fetch('http://localhost:3000/products')
+        fetch('https://ship-synce-api-server.vercel.app/products')
             .then(res => res.json())
             .then(data => {
                 setProducts(data)
@@ -39,7 +39,7 @@ const ProductDetails = () => {
             importing_quantity: quantity
         }
 
-        fetch('http://localhost:3000/imports', {
+        fetch('https://ship-synce-api-server.vercel.app/imports', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -50,7 +50,7 @@ const ProductDetails = () => {
             .then(data => {
                 toast.success('Product imported successfully!')
 
-                fetch(`http://localhost:3000/products/${product?._id}`, {
+                fetch(`https://ship-synce-api-server.vercel.app/products/${product?._id}`, {
                     method: 'PATCH',
                     headers: {
                         'content-type': 'application/json'
