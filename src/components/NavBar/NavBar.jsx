@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 const NavBar = () => {
 
     const { user, logOut, loading } = use(AuthContext)
+    
 
     const handleLogout = ()=>{
         logOut()
@@ -67,7 +68,7 @@ const NavBar = () => {
                 <div className='md:hidden'>
                     <div className='flex items-center justify-center gap-3'>
                         <div className='mr-3 bg-gray-300 p-1 rounded-full'>
-                            {loading ? <span className="loading loading-spinner loading-xl"></span> : user ? <img className='w-10 rounded-full' src={user?.photoURL} alt="" /> : <PiFinnTheHumanFill size={35} />}
+                            {loading ? <span className="loading loading-spinner loading-xl"></span> : user && user.photoURL ? <img className='w-10 rounded-full' src={user?.photoURL} alt="" /> : <PiFinnTheHumanFill size={35} />}
                         </div>
 
                         {user && user.email ? <button onClick={handleLogout} className='btn btn-soft btn-accent'>Logout</button> : <Link className='btn btn-soft btn-info' to="/login">Login</Link>}
