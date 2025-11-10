@@ -68,6 +68,7 @@ const MyImports = () => {
 
     return (
         <div className="py-10 px-5 md:px-14">
+            <title>My Imported Products || ShipSync</title>
             <h2 className="text-4xl font-bold text-info mb-4">My Imported Products</h2>
 
             {loading ?

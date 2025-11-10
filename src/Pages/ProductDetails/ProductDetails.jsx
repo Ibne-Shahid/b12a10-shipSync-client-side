@@ -87,6 +87,7 @@ const ProductDetails = () => {
 
     return (
         <div className='bg-gray-100 py-10'>
+            <title>Product Details || ShipSync</title>
             <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl overflow-hidden p-6">
                 <div className="flex flex-col md:flex-row gap-6">
 

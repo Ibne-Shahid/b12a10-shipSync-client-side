@@ -11,6 +11,7 @@ const Home = () => {
 
   return (
     <div>
+        <title>Home || ShipSync</title>
         <div className='relative'>
             <img src="https://themepalace.com/wp-content/uploads/2019/04/import-export-banner.jpg" alt="" />
             <div className='absolute bottom-2 left-12 md:bottom-5 md:left-24 lg:bottom-12 lg:left-48'>

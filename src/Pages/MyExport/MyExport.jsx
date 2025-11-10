@@ -69,6 +69,7 @@ const MyExport = () => {
 
     return (
         <div className="py-10 px-5 md:px-14">
+            <title>My Exported Products || ShipSync</title>
             <h1 className="text-4xl font-bold text-info mb-4">
                 My Exported Products
             </h1>

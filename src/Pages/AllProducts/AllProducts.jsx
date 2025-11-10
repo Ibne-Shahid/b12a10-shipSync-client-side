@@ -49,6 +49,7 @@ const AllProducts = () => {
 
     return (
         <div>
+            <title>All Products || ShipSync</title>
             <div className="text-center py-12 bg-white shadow-sm">
                 <h1 className="text-4xl font-bold text-info">All Products</h1>
                 <p className="text-gray-500 mt-2">
