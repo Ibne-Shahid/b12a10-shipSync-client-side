@@ -27,4 +27,9 @@
 - Node.js & Express.js  
 - MongoDB for database  
 - Dotenv for environment configuration  
-- CORS for secure API communication 
+- CORS for secure API communication
+
+## Author
+
+Developed by **Anas Bin Shahid**  
+Passionate about building modern, user-friendly web applications.
