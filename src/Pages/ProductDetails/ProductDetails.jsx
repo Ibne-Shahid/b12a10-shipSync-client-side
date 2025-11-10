@@ -86,9 +86,9 @@ const ProductDetails = () => {
     }
 
     return (
-        <div className='bg-gray-100 py-10'>
+        <div className='bg-base-200 py-10'>
             <title>Product Details || ShipSync</title>
-            <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl overflow-hidden p-6">
+            <div className="max-w-4xl mx-auto bg-base-100 shadow-lg rounded-2xl overflow-hidden p-6">
                 <div className="flex flex-col md:flex-row gap-6">
 
                     <div className="flex-1 flex justify-center items-center">
@@ -100,7 +100,7 @@ const ProductDetails = () => {
                     </div>
 
                     <div className="flex-1 space-y-4">
-                        <h1 className="text-3xl font-bold text-gray-800">{product?.product_name}</h1>
+                        <h1 className="text-3xl font-bold">{product?.product_name}</h1>
                         <p className="text-gray-600">{product?.description}</p>
 
                         <div className="grid grid-cols-2 gap-4 mt-4">
