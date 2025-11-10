@@ -1,4 +1,4 @@
-import React, { use } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { PiFinnTheHumanFill } from 'react-icons/pi'
 import { Link, NavLink } from 'react-router'
 import { AuthContext } from '../../Provider/AuthProvider'
@@ -8,14 +8,26 @@ import { toast } from 'react-toastify'
 const NavBar = () => {
 
     const { user, logOut, loading } = use(AuthContext)
-    
+    const [theme, setTheme] = useState(
+        localStorage.getItem("theme") || "light"
+    )
 
-    const handleLogout = ()=>{
+    useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme)
+        localStorage.setItem("theme", theme)
+    }, [theme])
+
+    const toggleTheme = () => {
+        setTheme(theme === "light" ? "dark" : "light")
+    }
+
+
+    const handleLogout = () => {
         logOut()
-        .then(()=>{
-            toast.success("You have been logged out succesfully!")
-        })
-        .catch((error) => {
+            .then(() => {
+                toast.success("You have been logged out succesfully!")
+            })
+            .catch((error) => {
                 const errorMessage = error.message
 
                 toast.error(errorMessage)
@@ -52,12 +64,28 @@ const NavBar = () => {
             </div>
             <div className="navbar-end">
 
+                <button onClick={toggleTheme} className='btn btn-ghost btn-circle mr-2'>
+                    {theme === "light" ?
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                d="M12 3v1m0 16v1m8.485-8.485h1M3.515 12.515h1M16.95 7.05l.707-.707M6.343 17.657l.707-.707M16.95 16.95l.707.707M6.343 6.343l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z" />
+                        </svg> :
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="#6B7280">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                        </svg>
+
+                    }
+                </button>
+
                 <div className='hidden md:block'>
                     <div className='flex items-center justify-center gap-3'>
                         <div className='mr-3 bg-gray-300 p-1 rounded-full'>
                             {loading ? <span className="loading loading-spinner loading-xl"></span> : user ? <img className='w-10 rounded-full' src={user?.photoURL} alt="" /> : <PiFinnTheHumanFill size={35} />}
                         </div>
-                        
+
                         {user && user.email ? <button onClick={handleLogout} className='btn btn-soft btn-accent'>Logout</button> : <>
                             <Link className='btn btn-soft btn-info' to="/login">Login</Link>
                             <Link className="btn btn-soft btn-success" to="/register">Register</Link></>}
@@ -72,7 +100,7 @@ const NavBar = () => {
                         </div>
 
                         {user && user.email ? <button onClick={handleLogout} className='btn btn-soft btn-accent'>Logout</button> : <Link className='btn btn-soft btn-info' to="/login">Login</Link>}
-                        
+
                     </div>
                 </div>
 

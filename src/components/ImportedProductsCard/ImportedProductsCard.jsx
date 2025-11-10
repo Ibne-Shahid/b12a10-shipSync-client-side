@@ -6,7 +6,7 @@ const ImportedProductsCard = ({item, handleRemove}) => {
     
     
     return (
-        <div className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+        <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-base-300">
             <div className="flex flex-col items-center p-4">
                 <img
                     src={item.importedProduct?.product_image}
