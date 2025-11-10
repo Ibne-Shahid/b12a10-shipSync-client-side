@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ExportedProductCard = ({product}) => {
+const ExportedProductCard = ({product, handleRemoveExport}) => {
     return (
         <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-base-300">
             <figure className="px-4 pt-4">
@@ -27,7 +27,7 @@ const ExportedProductCard = ({product}) => {
 
                 <div className="card-actions justify-between">
                     <button className="btn btn-soft btn-info ">Update</button>
-                    <button className="btn btn-soft btn-error ">Delete</button>
+                    <button onClick={()=>handleRemoveExport(product?._id)} className="btn btn-soft btn-error">Delete</button>
                 </div>
             </div>
         </div>
