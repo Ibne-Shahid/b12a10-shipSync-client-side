@@ -46,9 +46,10 @@ const NavBar = () => {
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                         <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/">Home</NavLink></li>
                         <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/allProducts">All Products</NavLink></li>
-                        <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/myImports">My Imports</NavLink></li>
-                        <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="myExports">My Exports</NavLink></li>
-                        <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/exportProducts">Export Products</NavLink></li>
+                        {
+                            user && user.email && <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/dashboard">Dashboard</NavLink></li>
+                        }
+                        
                     </ul>
                 </div>
                 <NavLink to="/"><h1 className="btn btn-ghost text-xl bg-gradient-to-r from-info via-accent to-success bg-clip-text text-transparent">ShipSync</h1></NavLink>
@@ -57,9 +58,10 @@ const NavBar = () => {
                 <ul className="menu menu-horizontal gap-3 px-1">
                     <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/">Home</NavLink></li>
                     <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/allProducts">All Products</NavLink></li>
-                    <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/myImports">My Imports</NavLink></li>
-                    <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="myExports">My Exports</NavLink></li>
-                    <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/exportProducts">Export Products</NavLink></li>
+                    {
+                        user && user.email && <li className='font-semibold'><NavLink className={({ isActive }) => isActive ? "bg-accent text-white" : "text-accent"} to="/dashboard">Dashboard</NavLink></li>
+                    }
+                    
                 </ul>
             </div>
             <div className="navbar-end">

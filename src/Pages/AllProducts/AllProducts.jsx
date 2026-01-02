@@ -17,7 +17,7 @@ const AllProducts = () => {
                 setLoading(false)
             })
     }, [])
-
+/8
     const handleSearch = (e) => {
         const value = e.target.value
         setSearch(value)
@@ -93,7 +93,7 @@ const AllProducts = () => {
                         <div className="flex justify-center items-center h-64 text-gray-500 text-lg">
                             No products found.
                         </div> :
-                        <div className='mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+                        <div className='mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5'>
                             {filteredProducts.map((product) => <Card key={product._id} product={product}></Card>)}
                         </div>
                 }

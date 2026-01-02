@@ -10,6 +10,8 @@ import Register from "../Pages/Register/Register";
 import PrivateRout from "../Provider/PrivateRout";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import NotFound from "../Pages/NotFound/NotFound";
+import Dashboard from "../Root-Layout/dashboard/Dashboard";
+import DashboardHome from "../Pages/DashboardHome/DashboardHome";
 
 
 const router = createBrowserRouter([
@@ -26,18 +28,6 @@ const router = createBrowserRouter([
                 element: <AllProducts></AllProducts>
             },
             {
-                path: '/myImports',
-                element: <PrivateRout><MyImports></MyImports></PrivateRout>
-            },
-            {
-                path: '/myExports',
-                element: <PrivateRout><MyExport></MyExport></PrivateRout>
-            },
-            {
-                path: '/exportProducts',
-                element: <PrivateRout><ExportProucts></ExportProucts></PrivateRout>
-            },
-            {
                 path: '/login',
                 element: <Login></Login>
             },
@@ -47,8 +37,30 @@ const router = createBrowserRouter([
             },
             {
                 path: '/productDetails/:id',
-                element: <PrivateRout><ProductDetails></ProductDetails></PrivateRout>
+                element: <ProductDetails></ProductDetails>
             }
+        ]
+    },
+    {
+        path: 'dashboard',
+        element: <PrivateRout><Dashboard></Dashboard></PrivateRout>,
+        children: [
+            {
+                element: <PrivateRout><DashboardHome></DashboardHome></PrivateRout>,
+                index: true
+            },
+            {
+                path: 'exportProducts',
+                element: <PrivateRout><ExportProucts></ExportProucts></PrivateRout>
+            },
+            {
+                path: 'myExports',
+                element: <PrivateRout><MyExport></MyExport></PrivateRout>
+            },
+            {
+                path: 'myImports',
+                element: <PrivateRout><MyImports></MyImports></PrivateRout>
+            },
         ]
     },
     {
