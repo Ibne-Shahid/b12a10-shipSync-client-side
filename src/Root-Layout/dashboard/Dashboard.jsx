@@ -3,6 +3,7 @@ import Footer from "../../components/Footer/Footer"
 import { TbPackageExport } from "react-icons/tb";
 import { AiOutlineExport } from "react-icons/ai";
 import { LiaFileImportSolid } from "react-icons/lia";
+import { CgProfile } from "react-icons/cg";
 
 const Dashboard = () => {
     return (
@@ -60,6 +61,15 @@ const Dashboard = () => {
                                 <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Imports">
                                     <LiaFileImportSolid />
                                     <span className="is-drawer-close:hidden">My Imports</span>
+                                </button>
+                            </li>
+                        </Link>
+
+                        <Link to="/dashboard/myProfile">
+                            <li>
+                                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Profile">
+                                    <CgProfile />
+                                    <span className="is-drawer-close:hidden">My Profile</span>
                                 </button>
                             </li>
                         </Link>

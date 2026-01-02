@@ -12,6 +12,7 @@ import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import NotFound from "../Pages/NotFound/NotFound";
 import Dashboard from "../Root-Layout/dashboard/Dashboard";
 import DashboardHome from "../Pages/DashboardHome/DashboardHome";
+import MyProfile from "../Pages/MyProfile/MyProfile";
 
 
 const router = createBrowserRouter([
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
                 path: 'myImports',
                 element: <PrivateRout><MyImports></MyImports></PrivateRout>
             },
+            {
+                path: 'myProfile',
+                element: <PrivateRout><MyProfile></MyProfile></PrivateRout>
+            }
         ]
     },
     {
