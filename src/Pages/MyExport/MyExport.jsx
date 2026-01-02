@@ -3,6 +3,7 @@ import { AuthContext } from '../../Provider/AuthProvider'
 import { toast } from 'react-toastify'
 import ExportedProductCard from '../../components/ExportedProductCard/ExportedProductCard'
 import Swal from 'sweetalert2'
+import { Link } from 'react-router'
 
 const MyExport = () => {
     const { user } = use(AuthContext)
@@ -10,11 +11,6 @@ const MyExport = () => {
     const [loading, setLoading] = useState(true)
     const [sortOption, setSortOption] = useState('newest')
     const [searchTerm, setSearchTerm] = useState('')
-    const importModalRef = useRef(null)
-
-    const handleModal = () => {
-        importModalRef.current.showModal()
-    }
 
     useEffect(() => {
         if (user?.email) {
@@ -236,12 +232,12 @@ const MyExport = () => {
                                         </ul>
                                     </div>
                                     
-                                    <a href="/export" className="btn btn-info">
+                                    <Link to="/dashboard/exportProducts" className="btn btn-info">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                                         </svg>
                                         Export New
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                             
@@ -264,7 +260,6 @@ const MyExport = () => {
                                 <p className="text-base-content/70">Please wait while we fetch your data...</p>
                             </div>
                         ) : exports.length === 0 ? (
-                            /* Empty State */
                             <div className="text-center py-16">
                                 <div className="mb-8">
                                     <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-br from-info/10 to-accent/10 mb-6">
@@ -320,8 +315,6 @@ const MyExport = () => {
                                                 key={product?._id} 
                                                 product={product} 
                                                 handleRemoveExport={handleRemoveExport}
-                                                importModalRef={importModalRef}
-                                                handleModal={handleModal}
                                             />
                                         ))}
                                     </div>
@@ -339,12 +332,12 @@ const MyExport = () => {
                                 <h3 className="text-2xl font-bold mb-2">Ready to expand your exports?</h3>
                                 <p className="opacity-80">Add more products to reach more international buyers</p>
                             </div>
-                            <a href="/export" className="btn btn-info btn-lg shadow-lg">
+                            <Link to="/dashboard/exportProducts" className="btn btn-info btn-lg shadow-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                                 </svg>
                                 Export More Products
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 )}
