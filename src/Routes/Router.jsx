@@ -13,6 +13,8 @@ import NotFound from "../Pages/NotFound/NotFound";
 import Dashboard from "../Root-Layout/dashboard/Dashboard";
 import DashboardHome from "../Pages/DashboardHome/DashboardHome";
 import MyProfile from "../Pages/MyProfile/MyProfile";
+import AboutUs from "../Pages/AboutUs/AboutUs";
+import InboxPage from "../Pages/Inbox/InboxPage";
 
 
 const router = createBrowserRouter([
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
             {
                 path: '/allProducts',
                 element: <AllProducts></AllProducts>
+            },
+            {
+                path: '/aboutUs',
+                element: <AboutUs></AboutUs>
+            },
+            {
+                path: '/notifications',
+                element: <PrivateRout><InboxPage></InboxPage></PrivateRout>
             },
             {
                 path: '/login',

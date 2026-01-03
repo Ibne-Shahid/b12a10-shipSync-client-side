@@ -76,7 +76,7 @@ const Register = () => {
     return (
         <div>
             <title>Register Your Account || ShipSync</title>
-            <div className='flex justify-center py-20'>
+            <div className='flex justify-center py-10'>
                 <div className='fieldset bg-base-300 border-base-300 rounded-box w-xs border p-4'>
                     <form onSubmit={handleRegister}>
                         <h1 className='text-2xl font-bold text-info text-center mb-5'>Register Your Account</h1>

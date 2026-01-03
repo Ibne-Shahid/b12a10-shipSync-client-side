@@ -74,7 +74,7 @@ const Login = () => {
     }
 
     return (
-        <div className='flex justify-center py-20'>
+        <div className='flex justify-center py-10'>
 
             <title>Login Your Account || ShipSync</title>
             <div className='fieldset bg-base-300 border-base-300 rounded-box w-xs border p-4'>

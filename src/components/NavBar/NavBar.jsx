@@ -22,7 +22,7 @@ const NavBar = () => {
                 setScrolled(false)
             }
         }
-        
+
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
@@ -52,15 +52,15 @@ const NavBar = () => {
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> 
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                         </svg>
                     </div>
                     <ul
                         tabIndex="-1"
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow-lg">
                         <li className='font-semibold'>
-                            <NavLink 
+                            <NavLink
                                 className={({ isActive }) => isActive ? "bg-accent " : "text-base-content"}
                                 to="/"
                             >
@@ -68,23 +68,41 @@ const NavBar = () => {
                             </NavLink>
                         </li>
                         <li className='font-semibold'>
-                            <NavLink 
+                            <NavLink
                                 className={({ isActive }) => isActive ? "bg-accent " : "text-base-content"}
                                 to="/allProducts"
                             >
                                 All Products
                             </NavLink>
                         </li>
+                        <li className='font-semibold'>
+                            <NavLink
+                                className={({ isActive }) => isActive ? "bg-accent " : "text-base-content"}
+                                to="/aboutUs"
+                            >
+                                About Us
+                            </NavLink>
+                        </li>
                         {
                             user && user.email && (
-                                <li className='font-semibold'>
-                                    <NavLink 
-                                        className={({ isActive }) => isActive ? "bg-accent " : "text-base-content"}
-                                        to="/dashboard"
-                                    >
-                                        Dashboard
-                                    </NavLink>
-                                </li>
+                                <>
+                                    <li className='font-semibold'>
+                                        <NavLink
+                                            className={({ isActive }) => isActive ? "bg-accent " : "text-base-content"}
+                                            to="/dashboard"
+                                        >
+                                            Dashboard
+                                        </NavLink>
+                                    </li>
+                                    <li className='font-semibold'>
+                                        <NavLink
+                                            className={({ isActive }) => isActive ? "bg-accent " : "text-base-content"}
+                                            to="/notifications"
+                                        >
+                                            Notifications
+                                        </NavLink>
+                                    </li>
+                                </>
                             )
                         }
                     </ul>
@@ -95,11 +113,11 @@ const NavBar = () => {
                     </span>
                 </NavLink>
             </div>
-            
+
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal gap-2 px-1">
                     <li className='font-semibold'>
-                        <NavLink 
+                        <NavLink
                             className={({ isActive }) => isActive ? "btn btn-accent " : "btn btn-ghost"}
                             to="/"
                         >
@@ -107,32 +125,50 @@ const NavBar = () => {
                         </NavLink>
                     </li>
                     <li className='font-semibold'>
-                        <NavLink 
+                        <NavLink
                             className={({ isActive }) => isActive ? "btn btn-accent " : "btn btn-ghost"}
                             to="/allProducts"
                         >
                             All Products
                         </NavLink>
                     </li>
+                    <li className='font-semibold'>
+                        <NavLink
+                            className={({ isActive }) => isActive ? "btn btn-accent " : "btn btn-ghost"}
+                            to="/aboutUs"
+                        >
+                            About Us
+                        </NavLink>
+                    </li>
                     {
                         user && user.email && (
-                            <li className='font-semibold'>
-                                <NavLink 
-                                    className={({ isActive }) => isActive ? "btn btn-accent " : "btn btn-ghost"}
-                                    to="/dashboard"
-                                >
-                                    Dashboard
-                                </NavLink>
-                            </li>
+                            <>
+                                <li className='font-semibold'>
+                                    <NavLink
+                                        className={({ isActive }) => isActive ? "btn btn-accent " : "btn btn-ghost"}
+                                        to="/dashboard"
+                                    >
+                                        Dashboard
+                                    </NavLink>
+                                </li>
+                                <li className='font-semibold'>
+                                    <NavLink
+                                        className={({ isActive }) => isActive ? "btn btn-accent " : "btn btn-ghost"}
+                                        to="/notifications"
+                                    >
+                                        Notifications
+                                    </NavLink>
+                                </li>
+                            </>
                         )
                     }
                 </ul>
             </div>
-            
+
             <div className="navbar-end gap-2">
                 {/* Theme Toggle */}
-                <button 
-                    onClick={toggleTheme} 
+                <button
+                    onClick={toggleTheme}
                     className='btn btn-ghost btn-circle btn-sm md:btn-md'
                     aria-label="Toggle theme"
                 >
