@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import Card from '../../components/Card/Card'
 
 const AllProducts = () => {
@@ -6,58 +6,103 @@ const AllProducts = () => {
     const [search, setSearch] = useState("")
     const [sort, setSort] = useState("")
     const [loading, setLoading] = useState(true)
+    
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const [totalProducts, setTotalProducts] = useState(0)
+    
+    const itemsPerPage = 8
+
+    const fetchProducts = useCallback(async (page = 1) => {
+        setLoading(true)
+        try {
+            const skip = (page - 1) * itemsPerPage
+            
+            const url = `https://ship-synce-api-server.vercel.app/products/paginated?page=${page}&limit=${itemsPerPage}&search=${search}&sort=${sort}`
+            
+            const res = await fetch(url)
+            const data = await res.json()
+            
+            setProducts(data.products || [])
+            setTotalProducts(data.total || 0)
+            setTotalPages(Math.ceil(data.total / itemsPerPage))
+            setCurrentPage(page)
+        } catch (error) {
+            console.error('Error fetching products:', error)
+            setProducts([])
+        } finally {
+            setLoading(false)
+        }
+    }, [search, sort, itemsPerPage])
 
     useEffect(() => {
-        setLoading(true)
-        fetch('https://ship-synce-api-server.vercel.app/products')
-            .then(res => res.json())
-            .then(data => {
-                setProducts(data)
-                setLoading(false)
-            })
-    }, [])
+        fetchProducts(1)
+    }, [fetchProducts])
 
-    const handleSearch = (e) => {
+    const handleSearch = useCallback((e) => {
         const value = e.target.value
         setSearch(value)
-        setLoading(true)
-        setTimeout(() => setLoading(false), 400)
-    };
+        fetchProducts(1)
+    }, [fetchProducts])
 
-    const handleSort = (e) => {
+    const handleSort = useCallback((e) => {
         const value = e.target.value
         setSort(value)
-        setLoading(true)
-        setTimeout(() => setLoading(false), 400)
-    };
+        fetchProducts(1)
+    }, [fetchProducts])
 
-    let filteredProducts = [...products]
-
-    // Search filter
-    if (search.trim() !== "") {
-        filteredProducts = products.filter((product) => 
-            product.product_name.toLowerCase().includes(search.toLowerCase())
-        )
+    const goToPage = (page) => {
+        if (page >= 1 && page <= totalPages) {
+            fetchProducts(page)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
     }
 
-    if (sort === "price-low-high") {
-        filteredProducts.sort((a, b) => a.price - b.price)
-    } else if (sort === "price-high-low") {
-        filteredProducts.sort((a, b) => b.price - a.price)
-    } else if (sort === "rating-high-low") {
-        filteredProducts.sort((a, b) => b.rating - a.rating)
-    } else if (sort === "rating-low-high") {
-        filteredProducts.sort((a, b) => a.rating - b.rating)
-    } else if (sort === "newest-first") {
-        filteredProducts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-    } else if (sort === "oldest-first") {
-        filteredProducts.sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
-    } else if (sort === "popular") {
-        filteredProducts.sort((a, b) => {
-            const ratingDiff = b.rating - a.rating;
-            if (ratingDiff !== 0) return ratingDiff;
-            return (b.review_count || 0) - (a.review_count || 0);
-        })
+    const goToNextPage = () => {
+        if (currentPage < totalPages) {
+            goToPage(currentPage + 1)
+        }
+    }
+
+    const goToPrevPage = () => {
+        if (currentPage > 1) {
+            goToPage(currentPage - 1)
+        }
+    }
+
+    const getPageNumbers = () => {
+        const pages = []
+        const maxVisiblePages = 5
+        
+        if (totalPages <= maxVisiblePages) {
+            for (let i = 1; i <= totalPages; i++) {
+                pages.push(i)
+            }
+        } else {
+            if (currentPage <= 3) {
+                for (let i = 1; i <= 4; i++) {
+                    pages.push(i)
+                }
+                pages.push('...')
+                pages.push(totalPages)
+            } else if (currentPage >= totalPages - 2) {
+                pages.push(1)
+                pages.push('...')
+                for (let i = totalPages - 3; i <= totalPages; i++) {
+                    pages.push(i)
+                }
+            } else {
+                pages.push(1)
+                pages.push('...')
+                for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+                    pages.push(i)
+                }
+                pages.push('...')
+                pages.push(totalPages)
+            }
+        }
+        
+        return pages
     }
 
     return (
@@ -138,12 +183,15 @@ const AllProducts = () => {
                                     </div>
                                 ) : (
                                     <>
-                                        <span className="font-semibold">{filteredProducts.length}</span> products found
+                                        <span className="font-semibold">{totalProducts}</span> products found
                                         {search && (
                                             <span className="ml-2 opacity-70">
                                                 for "<span className="font-medium">{search}</span>"
                                             </span>
                                         )}
+                                        <span className="ml-3 opacity-70">
+                                            (Page {currentPage} of {totalPages})
+                                        </span>
                                     </>
                                 )}
                             </div>
@@ -162,7 +210,10 @@ const AllProducts = () => {
                                         {sort === "popular" && "Most Popular"}
                                     </span>
                                     <button 
-                                        onClick={() => setSort("")}
+                                        onClick={() => {
+                                            setSort("")
+                                            fetchProducts(1)
+                                        }}
                                         className="btn btn-xs btn-ghost"
                                     >
                                         Clear
@@ -180,8 +231,7 @@ const AllProducts = () => {
                             <p className="text-base-content opacity-70">Fetching from global database</p>
                         </div>
                     ) : (
-                        /* Products Grid or Empty State */
-                        filteredProducts.length === 0 ? (
+                        products.length === 0 ? (
                             <div className="text-center py-20">
                                 <div className="w-24 h-24 mx-auto mb-6 bg-base-200 rounded-full flex items-center justify-center">
                                     <svg className="w-12 h-12 text-base-content opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -194,7 +244,10 @@ const AllProducts = () => {
                                 </p>
                                 {search && (
                                     <button 
-                                        onClick={() => setSearch("")}
+                                        onClick={() => {
+                                            setSearch("")
+                                            fetchProducts(1)
+                                        }}
                                         className="btn btn-primary"
                                     >
                                         Clear Search
@@ -202,40 +255,86 @@ const AllProducts = () => {
                                 )}
                             </div>
                         ) : (
-                            /* Products Grid */
                             <>
-                                {/* Grid Layout Toggle (Optional) */}
-                                <div className="mb-6 flex justify-end">
-                                    <div className="btn-group">
-                                        <button className="btn btn-sm btn-active">
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                                            </svg>
-                                        </button>
-                                        <button className="btn btn-sm">
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-
                                 {/* Products Grid */}
-                                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
-                                    {filteredProducts.map((product) => (
+                                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12'>
+                                    {products.map((product) => (
                                         <Card key={product._id} product={product} />
                                     ))}
                                 </div>
 
-                                {/* Pagination (Optional) */}
-                                {filteredProducts.length > 12 && (
-                                    <div className="mt-12 flex justify-center">
-                                        <div className="join">
-                                            <button className="join-item btn btn-outline">Previous</button>
-                                            <button className="join-item btn btn-primary">1</button>
-                                            <button className="join-item btn btn-outline">2</button>
-                                            <button className="join-item btn btn-outline">3</button>
-                                            <button className="join-item btn btn-outline">Next</button>
+                                {/* Pagination */}
+                                {totalPages > 1 && (
+                                    <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-8">
+                                        {/* Items per page info */}
+                                        <div className="text-base-content opacity-70">
+                                            Showing {Math.min((currentPage - 1) * itemsPerPage + 1, totalProducts)}-
+                                            {Math.min(currentPage * itemsPerPage, totalProducts)} of {totalProducts} products
+                                        </div>
+
+                                        {/* Pagination Controls */}
+                                        <div className="flex items-center gap-2">
+                                            {/* Previous Button */}
+                                            <button
+                                                onClick={goToPrevPage}
+                                                disabled={currentPage === 1}
+                                                className={`btn btn-sm ${currentPage === 1 ? 'btn-disabled' : 'btn-outline'}`}
+                                            >
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                                                </svg>
+                                                Previous
+                                            </button>
+
+                                            {/* Page Numbers */}
+                                            <div className="join">
+                                                {getPageNumbers().map((pageNum, index) => (
+                                                    pageNum === '...' ? (
+                                                        <button key={`dots-${index}`} className="join-item btn btn-disabled btn-sm">
+                                                            ...
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            key={pageNum}
+                                                            onClick={() => goToPage(pageNum)}
+                                                            className={`join-item btn btn-sm ${currentPage === pageNum ? 'btn-primary' : 'btn-outline'}`}
+                                                        >
+                                                            {pageNum}
+                                                        </button>
+                                                    )
+                                                ))}
+                                            </div>
+
+                                            {/* Next Button */}
+                                            <button
+                                                onClick={goToNextPage}
+                                                disabled={currentPage === totalPages}
+                                                className={`btn btn-sm ${currentPage === totalPages ? 'btn-disabled' : 'btn-outline'}`}
+                                            >
+                                                Next
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </button>
+                                        </div>
+
+                                        {/* Page Jump */}
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-sm text-base-content opacity-70">Go to:</span>
+                                            <input
+                                                type="number"
+                                                min="1"
+                                                max={totalPages}
+                                                value={currentPage}
+                                                onChange={(e) => {
+                                                    const page = parseInt(e.target.value)
+                                                    if (page >= 1 && page <= totalPages) {
+                                                        goToPage(page)
+                                                    }
+                                                }}
+                                                className="input input-bordered input-sm w-20"
+                                            />
+                                            <span className="text-sm text-base-content opacity-70">/ {totalPages}</span>
                                         </div>
                                     </div>
                                 )}
