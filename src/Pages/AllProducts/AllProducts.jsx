@@ -163,11 +163,6 @@ const AllProducts = () => {
                                             <option value="rating-high-low">Rating: High to Low</option>
                                             <option value="rating-low-high">Rating: Low to High</option>
                                         </optgroup>
-                                        <optgroup label="Date">
-                                            <option value="newest-first">Newest First</option>
-                                            <option value="oldest-first">Oldest First</option>
-                                        </optgroup>
-                                        <option value="popular">Most Popular</option>
                                     </select>
                                 </div>
                             </div>
@@ -205,9 +200,6 @@ const AllProducts = () => {
                                         {sort === "price-high-low" && "Price: High to Low"}
                                         {sort === "rating-high-low" && "Rating: High to Low"}
                                         {sort === "rating-low-high" && "Rating: Low to High"}
-                                        {sort === "newest-first" && "Newest First"}
-                                        {sort === "oldest-first" && "Oldest First"}
-                                        {sort === "popular" && "Most Popular"}
                                     </span>
                                     <button 
                                         onClick={() => {
