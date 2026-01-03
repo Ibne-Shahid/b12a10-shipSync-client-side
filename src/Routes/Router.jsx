@@ -17,6 +17,7 @@ import AboutUs from "../Pages/AboutUs/AboutUs";
 import InboxPage from "../Pages/Inbox/InboxPage";
 import Contact from "../Pages/Contact/Contact";
 import Jobs from "../Pages/Jobs/Jobs";
+import PressKit from "../Pages/PressKit/PressKit";
 
 
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: '/jobs',
                 element: <Jobs></Jobs>
+            },
+            {
+                path: '/pressKit',
+                element: <PressKit></PressKit>
             },
             {
                 path: '/contactUs',
