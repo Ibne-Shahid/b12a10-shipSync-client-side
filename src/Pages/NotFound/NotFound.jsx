@@ -6,11 +6,11 @@ const NotFound = () => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(-1); // Go back to previous page
+    navigate(-1); 
   };
 
   const handleGoHome = () => {
-    navigate("/"); // Go to home page
+    navigate("/"); 
   };
 
   return (

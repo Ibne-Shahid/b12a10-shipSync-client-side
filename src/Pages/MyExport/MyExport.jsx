@@ -57,7 +57,6 @@ const MyExport = () => {
         })
     }
 
-    // Filter and sort exports
     const filteredExports = exports
         .filter(product => 
             product.product_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||

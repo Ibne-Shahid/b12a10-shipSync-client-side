@@ -111,6 +111,7 @@ const MyProfile = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 py-8 px-4">
+            <title>My Profile || ShipSync</title>
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="mb-10">

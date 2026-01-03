@@ -222,7 +222,7 @@ const DashboardHome = () => {
                                         <XAxis dataKey="name" stroke="#9CA3AF" />
                                         <YAxis stroke="#9CA3AF" />
                                         <Tooltip
-                                            formatter={(value) => [`$${value}M`, 'Value']}
+                                            formatter={(value) => [`৳${value}M`, 'Value']}
                                             labelStyle={{ color: '#1F2937' }}
                                         />
                                         <Legend />
